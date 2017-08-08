@@ -19,7 +19,7 @@ Description
 Install
 ================
 Perform next steps in order:
-* git clone https://github.com/bigredpanda/courier_trip_schedule.git
+* git clone https://github.com/bigredpanda/amazing_tasks.git
 * cd amazing_tasks
 * npm install
 * composer install
