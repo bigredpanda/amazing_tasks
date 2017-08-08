@@ -1,0 +1,74 @@
+<div class="task_container {% if task.is_performed %} performed {% endif %}">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 id="taskTitle">{{ task.title }}</h3>
+        </div>
+        <div class="col-md-6 ">
+            {% if is_can_edit %}
+                <div class="btn-group pull-right">
+                    <a href="/task/edit/{{ task.id }}" class="btn btn-xs btn-primary">edit</a>
+                    <button data-id="{{ task.id }}" class="btn btn-xs btn-danger removeBtn">
+                        remove
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    {% if task.image or showImage %}
+        <div align="center">
+            <img id="taskImage" src="web/upload/{{ task.image }}">
+        </div>
+    {% endif %}
+    <p class="message" id="taskMessage">{{ task.message | nl2br }}</p>
+
+    <hr>
+    <div class="author_info">
+        <p><strong><u>Author:</u></strong> <span id="taskAuthor">{{ task.author }}</span></p>
+        <p><strong><u>Email:</u></strong> <span id="taskEmail"> {{ task.email }}</span></p>
+    </div>
+</div>
+
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h1>Are you sure?</h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="removeBtn" class="btn btn-danger" data-dismiss="modal">Remove it!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(function () {
+        $('.removeBtn').on('click', function () {
+            let taskId = $(this).data('id');
+            $('#removeBtn').attr('data-id', taskId);
+            $('#confirmDeleteModal').modal('show');
+        });
+
+        $('#removeBtn').on('click', function () {
+            let taskId = $(this).data('id');
+
+            $.ajax({
+                method : 'POST',
+                url    : '/task/remove/' + taskId,
+                success: function (res) {
+                    res = JSON.parse(res);
+
+                    if (!res.error) {
+                        location.reload();
+                    }
+                }
+            })
+        });
+    })
+</script>

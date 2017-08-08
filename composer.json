@@ -1,0 +1,20 @@
+{
+  "name": "amazingTasks",
+  "authors": [
+    {
+      "name": "Pasha Spichak",
+      "email": "bigredpanda94@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/src/App",
+      "Core\\": "app/src/Core",
+      "Lib\\": "app/src/Lib"
+    }
+  },
+  "require": {
+    "twig/twig": "^2.0",
+    "eventviva/php-image-resize": "1.6.*"
+  }
+}

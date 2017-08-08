@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h2>Creating task</h2>
+    <hr>
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <div class="alert alert-info">
+        Fields, marked with <span style="color: darkred; font-weight: bold">*</span> are required!
+    </div>
+
+    <form method="POST" action="/task/create" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Title<span style="color: darkred; font-weight: bold">*</span></label>
+            <input id="title" name="title" class="form-control" placeholder="Type task title..." required>
+        </div>
+
+        <div class="form-group">
+            <label>Author<span style="color: darkred; font-weight: bold">*</span></label>
+            <input name="author" id="author" class="form-control" placeholder="Type your name..." required>
+        </div>
+
+        <div class="form-group">
+            <label>Email<span style="color: darkred; font-weight: bold">*</span></label>
+            <input name="email" id="email" type="email" class="form-control" placeholder="Type your email..." required>
+        </div>
+
+        <div class="form-group">
+            <label>Text<span style="color: darkred; font-weight: bold">*</span></label>
+            <textarea rows="5" name="message" id="message" class="form-control" placeholder="Type task text here..."
+                      required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Image</label>
+            <input id="image" name="image" type="file" class="form-control" data-preview-file-type="text">
+        </div>
+
+        <button type="button" id="previewBtn" class="btn btn-primary">Preview!</button>
+        <button class="btn btn-success">Create it!</button>
+    </form>
+
+    {% include 'Task/modal/preview.html.twig' with {'showImage': true} %}
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function () {
+            $('#image').fileinput({
+                showUpload           : false,
+                allowedFileExtensions: ['jpg', 'gif', 'png'],
+                allowedPreviewTypes  : ['image'],
+                showUploadedThumbs   : false,
+                resizeImage          : true,
+                maxImageHeight       : '240px',
+                maxImageWidth        : '320px'
+            });
+
+            $('#previewBtn').on('click', function () {
+                let title = $('#title').val();
+                let author = $('#author').val();
+                let email = $('#email').val();
+                let message = $('#message').val().replace(/\n/g, "<br />");
+
+                let $image = $('.kv-file-content img')[0];
+                let image = ($image !== undefined) ? $image.currentSrc : '';
+
+                $('#taskTitle').html(title);
+                $('#taskAuthor').html(author);
+                $('#taskEmail').html(email);
+                $('#taskMessage').html(message);
+                $('#taskImage').attr('src', image);
+
+                $('#previewTask').modal();
+            });
+        });
+
+    </script>
+{% endblock %}

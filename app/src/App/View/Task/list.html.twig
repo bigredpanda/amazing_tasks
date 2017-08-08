@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    {% if flash %}
+        <div id="flashMessage" class="alert alert-{{ flash.type }}">
+            {{ flash.message }}
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <form id="sortForm" class="form-inline" method="GET" action="/">
+                <input type="hidden" name="page" value="{{ current_page }}">
+                <div class="form-group">
+                    <label>Sort by: </label>
+                    <select name="order_field" class="form-control order">
+                        {% for key, value in order_fields %}
+                            <option value="{{ value }}" {% if value == order.field %} selected {% endif %}>
+                                {{ key }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Direction: </label>
+                    <select name="order_direction" class="form-control order">
+                        {% for direction in order_directions %}
+                            <option value="{{ direction }}" {% if direction == order.direction %} selected {% endif %}>
+                                {{ direction }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <a href="/task/create" class="btn btn-primary pull-right">Create task</a>
+        </div>
+    </div>
+
+    {% for task in tasks %}
+        {% include 'Task/task.html.twig' with {'task': task, 'is_can_edit': is_can_edit} %}
+    {% endfor %}
+
+    {% if page_count > 1 %}
+        <div class="text-center">
+            <ul class="pagination">
+                {% for page_number in range(1, page_count) %}
+                    <li {% if page_number == current_page %} class="active" {% endif %}>
+                        <a href="?page={{ page_number }}&order_field={{ order.field }}&order_direction={{ order.direction }}">
+                            {{ page_number }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function () {
+            $('.order').on('change', function () {
+                $('#sortForm').submit();
+            });
+
+            $("#flashMessage").fadeTo(2000, 500).slideUp(500, function () {
+                $(this).slideUp(500);
+            });
+        });
+    </script>
+{% endblock %}

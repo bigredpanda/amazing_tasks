@@ -1,0 +1,34 @@
+{
+  "name": "amazingTasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-fileinput": "^4.4.2",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.1",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "style-loader": "^0.17.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "webpack": "^3.4.1",
+    "webpack-merge": "^4.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bigredpanda/AmazingFramework.git"
+  },
+  "author": "Pavel Spichak <bigredpanda94@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bigredpanda/AmazingFramework/issues"
+  },
+  "homepage": "https://github.com/bigredpanda/AmazingFramework#readme"
+}

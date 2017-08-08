@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site_name }}</title>
+    <link rel="stylesheet" type="text/css" href="/web/assets/css/main.css">
+    <script type="application/javascript" src="/web/assets/js/main.js"></script>
+    <script src="/web/assets/js/jquery.min.js"></script>
+    <script src="/web/assets/js/bootstrap.min.js"></script>
+    <script src="/web/assets/js/fileinput.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">{{ site_name }}</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Main</a></li>
+            </ul>
+
+            {% if user %}
+                <form method="POST" action="/logout">
+                    <button class="pull-right btn btn-sm btn-default" style="margin-top: 0.6%">
+                        Log out!
+                    </button>
+                </form>
+            {% else %}
+                <button class="pull-right btn btn-sm btn-default" style="margin-top: 0.6%" data-toggle="modal"
+                        data-target="#login">
+                    Log as admin!
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="content">
+    {% block content %}{% endblock %}
+    {% include 'Modal/login.html.twig' %}
+</div>
+
+{% block javascript %}{% endblock %}
+</body>
+</html>
