@@ -10,31 +10,33 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form id="sortForm" class="form-inline" method="GET" action="/">
-                <input type="hidden" name="page" value="{{ current_page }}">
-                <div class="form-group">
-                    <label>Sort by: </label>
-                    <select name="order_field" class="form-control order">
-                        {% for key, value in order_fields %}
-                            <option value="{{ value }}" {% if value == order.field %} selected {% endif %}>
-                                {{ key }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Direction: </label>
-                    <select name="order_direction" class="form-control order">
-                        {% for direction in order_directions %}
-                            <option value="{{ direction }}" {% if direction == order.direction %} selected {% endif %}>
-                                {{ direction }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </form>
+            {% if tasks_count %}
+                <form id="sortForm" class="form-inline" method="GET" action="/">
+                    <input type="hidden" name="page" value="{{ current_page }}">
+                    <div class="form-group">
+                        <label>Sort by: </label>
+                        <select name="order_field" class="form-control order">
+                            {% for key, value in order_fields %}
+                                <option value="{{ value }}" {% if value == order.field %} selected {% endif %}>
+                                    {{ key }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Direction: </label>
+                        <select name="order_direction" class="form-control order">
+                            {% for direction in order_directions %}
+                                <option value="{{ direction }}" {% if direction == order.direction %} selected {% endif %}>
+                                    {{ direction }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+            {% endif %}
         </div>
-
+        
         <div class="col-md-6">
             <a href="/task/create" class="btn btn-primary pull-right">Create task</a>
         </div>

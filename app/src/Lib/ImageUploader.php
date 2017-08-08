@@ -12,7 +12,7 @@ class ImageUploader
     {
         $result = '';
         if (!$files['image']['error']) {
-            $uploadDirectory = Config::get('image_upload_dir');
+            $uploadDirectory = Config::get('image_upload_directory');
             mkdir($uploadDirectory, 0777);
             $fileExtension = '.' . pathinfo($files['image']['name'])['extension'];
             $fileName = time() . $fileExtension;

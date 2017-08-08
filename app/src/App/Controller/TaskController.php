@@ -64,7 +64,8 @@ class TaskController extends Controller
             'order_directions' => ['asc', 'desc'],
             'current_page'     => $currentPage + 1,
             'page_count'       => $pageCount,
-            'is_can_edit'      => $isCanEdit
+            'is_can_edit'      => $isCanEdit,
+            'tasks_count'      => $tasksCount
         ]);
     }
 
